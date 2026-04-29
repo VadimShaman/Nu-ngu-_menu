@@ -145,7 +145,6 @@
             border: 0.5px solid #b87a3e;
         }
 
-        /* Info section — как на сайте-примере */
         .info-section {
             background: #1e1711c9;
             border-radius: 28px;
@@ -173,7 +172,6 @@
             border: 1px solid #b87a3e;
         }
 
-        /* категории меню */
         .category {
             background: #18130ed9;
             border-radius: 36px 16px 36px 16px;
@@ -181,7 +179,6 @@
             overflow: hidden;
             border: 1px solid #ad6b3270;
             box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-            transition: all 0.2s;
         }
         .category-header {
             background: #2c1f14b3;
@@ -192,6 +189,7 @@
             justify-content: space-between;
             align-items: center;
             backdrop-filter: blur(2px);
+            user-select: none;
         }
         .category-header h3 {
             font-size: 1.35rem;
@@ -213,16 +211,19 @@
             font-size: 1.2rem;
             cursor: pointer;
             font-weight: bold;
+            transition: transform 0.2s;
         }
         .category-content {
             padding: 20px 24px;
             display: block;
         }
-        .collapsed .category-content {
+        .category.collapsed .category-content {
             display: none;
         }
+        .category.collapsed .category-header button {
+            transform: rotate(-90deg);
+        }
 
-        /* Таблица как в примере */
         .menu-table {
             width: 100%;
             border-collapse: collapse;
@@ -252,12 +253,6 @@
             font-weight: 500;
             white-space: nowrap;
         }
-        .price {
-            color: #f5bc7a;
-            font-weight: 500;
-            font-family: monospace;
-            white-space: nowrap;
-        }
         .dish-desc {
             font-size: 0.8rem;
             color: #cbb28b;
@@ -275,8 +270,12 @@
         }
 
         @media (max-width: 680px) {
-            .menu-table, .menu-table tbody, .menu-table tr, .menu-table td { display: block; }
-            .menu-table th { display: none; }
+            .menu-table, .menu-table tbody, .menu-table tr, .menu-table td {
+                display: block;
+            }
+            .menu-table th {
+                display: none;
+            }
             .menu-table td {
                 display: flex;
                 justify-content: space-between;
@@ -292,9 +291,19 @@
                 color: #f4cf9c;
                 min-width: 100px;
             }
-            .header-content { flex-direction: column; align-items: center; text-align: center; }
-            .tagline { border-left: none; text-align: center; padding-left: 0; }
-            .hero h2 { font-size: 1.3rem; }
+            .header-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .tagline {
+                border-left: none;
+                text-align: center;
+                padding-left: 0;
+            }
+            .hero h2 {
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
@@ -334,7 +343,6 @@
         <div class="badge">📍 Луизиана, 2011 • открыто до последнего гостя</div>
     </div>
 
-    <!-- Информационный блок — как на сайте-примере -->
     <div class="info-section" id="info">
         <h3>🌙 Что такое хого?</h3>
         <p>В китайской традиции <strong>Хого</strong> (или «китайский самовар») — это одновременно название блюда, способ его приготовления и целая философия. «Хого» складывается из двух иероглифов: 火 (огонь) и 锅 (горшок). Посреди стола устанавливается медный котёл с кипящим бульоном, а участники трапезы сами добавляют продукты и варят их прямо за столом.</p>
@@ -343,12 +351,12 @@
         
         <div class="price-notice">
             🌙 С 1 января 2011 года стоимость «Тёплого котла» — $26.90 с человека.<br>
-            В эту сумму входит выбранный бульон и безлимитный доступ ко всем продуктам из меню ниже.<br>
+            В эту сумму входит выбранный бульон и <strong>безлимитный доступ ко всем продуктам</strong> из меню ниже.<br>
             Вы можете прийти один, вдвоём или целой компанией. Ваш Хого горит всю ночь.
         </div>
     </div>
 
-    <!-- ========== БУЛЬОНЫ ========== -->
+    <!-- БУЛЬОНЫ -->
     <div class="category" id="broths">
         <div class="category-header" onclick="toggleCategory(this)">
             <h3>🥣 锅底 / БУЛЬОНЫ <span>— основа вашего вечера</span></h3>
@@ -356,18 +364,20 @@
         </div>
         <div class="category-content">
             <table class="menu-table">
-                <thead><tr><th>Артикул</th><th>Китайское название</th><th>Русское название</th><th>Описание</th></thead>
+                <thead>
+                    <tr><th>Артикул</th><th>Китайское название</th><th>Русское название</th><th>Описание</th></tr>
+                </thead>
                 <tbody>
                     <tr><td class="code">NG-B01</td><td>原味清汤</td><td>Yuánwèi qīngtāng</td><td class="dish-desc">Прозрачный бульон с имбирём и звёздчатым анисом. Тот, кто пьёт его в три утра, однажды вернётся.</td></tr>
                     <tr><td class="code">NG-B02</td><td>番茄汤</td><td>Fānqié tāng</td><td class="dish-desc">Томатный бульон с базиликом. Луизианский акцент: помидоры с болот и тайский базилик.</td></tr>
                     <tr><td class="code">NG-B03</td><td>菌菇汤</td><td>Jūngū tāng</td><td class="dish-desc">Грибной бульон с вудъером. Растёт там, где когда-то была любовь.</td></tr>
                     <tr><td class="code">NG-B04</td><td>鸳鸯锅</td><td>Yuānyāng guō</td><td class="dish-desc">«Мандаринки» — два бульона в одном котле. Острый и нежный. Как утки, что находят пару на всю жизнь.</td></tr>
                 </tbody>
-            </td>
+            </table>
         </div>
     </div>
 
-    <!-- ========== МЯСО ========== -->
+    <!-- МЯСО (исправленный раздел) -->
     <div class="category" id="meats">
         <div class="category-header" onclick="toggleCategory(this)">
             <h3>🥩 肉类 / МЯСО <span>— для тех, кто ищет тепло</span></h3>
@@ -375,7 +385,9 @@
         </div>
         <div class="category-content">
             <table class="menu-table">
-                <thead><tr><th>Артикул</th><th>Китайское название</th><th>Русское название</th><th>Описание</th></thead>
+                <thead>
+                    <tr><th>Артикул</th><th>Китайское название</th><th>Русское название</th><th>Описание</th></tr>
+                </thead>
                 <tbody>
                     <tr><td class="code">NG-M01</td><td>雪花牛肉</td><td>Мраморная говядина</td><td class="dish-desc">Тонко нарезана, почти прозрачна. В бульоне 20 секунд — успейте сказать важное.</td></tr>
                     <tr><td class="code">NG-M02</td><td>羊肉卷</td><td>Баранина в рулете</td><td class="dish-desc">Чуть жирнее, чуть теплее. Для сильных вкусов и долгих ночей.</td></tr>
@@ -388,7 +400,7 @@
         </div>
     </div>
 
-    <!-- ========== МОРЕПРОДУКТЫ ========== -->
+    <!-- МОРЕПРОДУКТЫ -->
     <div class="category" id="seafood">
         <div class="category-header" onclick="toggleCategory(this)">
             <h3>🦐 海鲜 / МОРЕПРОДУКТЫ <span>— из Луизианы с любовью</span></h3>
@@ -396,7 +408,9 @@
         </div>
         <div class="category-content">
             <table class="menu-table">
-                <thead><tr><th>Артикул</th><th>Китайское название</th><th>Русское название</th><th>Описание</th></thead>
+                <thead>
+                    <tr><th>Артикул</th><th>Китайское название</th><th>Русское название</th><th>Описание</th></tr>
+                </thead>
                 <tbody>
                     <tr><td class="code">NG-S01</td><td>鲜美手打虾滑</td><td>Креветочный фарш</td><td class="dish-desc">Нежнейший, ручной работы. Ложкой — в бульон, и готово через минуту.</td></tr>
                     <tr><td class="code">NG-S02</td><td>大虾</td><td>Креветки «бабочка»</td><td class="dish-desc">Каждую разрезают вручную, чтобы хвостик раскрылся. Загадайте желание.</td></tr>
@@ -408,7 +422,7 @@
         </div>
     </div>
 
-    <!-- ========== ТОФУ, ГРИБЫ, ОВОЩИ ========== -->
+    <!-- ТОФУ, ГРИБЫ, ОВОЩИ -->
     <div class="category" id="tofu">
         <div class="category-header" onclick="toggleCategory(this)">
             <h3>🥬 豆制品与蔬菜 / ТОФУ, ГРИБЫ & ОВОЩИ <span>— тихие спутники</span></h3>
@@ -416,7 +430,9 @@
         </div>
         <div class="category-content">
             <table class="menu-table">
-                <thead><tr><th>Артикул</th><th>Китайское название</th><th>Русское название</th><th>Описание</th></thead>
+                <thead>
+                    <tr><th>Артикул</th><th>Китайское название</th><th>Русское название</th><th>Описание</th></tr>
+                </thead>
                 <tbody>
                     <tr><td class="code">NG-V01</td><td>鲜豆腐</td><td>Шёлковый тофу</td><td class="dish-desc">Мягкий, как тишина в три часа ночи.</td></tr>
                     <tr><td class="code">NG-V02</td><td>冻豆腐</td><td>Замороженный тофу</td><td class="dish-desc">Впитывает бульон как губка — осторожно, горячий!</td></tr>
@@ -431,7 +447,7 @@
         </div>
     </div>
 
-    <!-- ========== ЛАПША ========== -->
+    <!-- ЛАПША -->
     <div class="category" id="noodles">
         <div class="category-header" onclick="toggleCategory(this)">
             <h3>🍜 面条 / ЛАПША & ОСНОВА <span>— чтобы наесться до утра</span></h3>
@@ -439,7 +455,9 @@
         </div>
         <div class="category-content">
             <table class="menu-table">
-                <thead><tr><th>Артикул</th><th>Китайское название</th><th>Русское название</th><th>Описание</th></thead>
+                <thead>
+                    <tr><th>Артикул</th><th>Китайское название</th><th>Русское название</th><th>Описание</th></tr>
+                </thead>
                 <tbody>
                     <tr><td class="code">NG-N01</td><td>手工拉面</td><td>Лапша ручной тяги</td><td class="dish-desc">Повариха тянет её при вас, если ресторан пуст. «Время можно растянуть, но нельзя повернуть назад».</td></tr>
                     <tr><td class="code">NG-N02</td><td>宽粉</td><td>Широкая лапша</td><td class="dish-desc">Прозрачная, упругая. Хорошо держит соус.</td></tr>
@@ -471,10 +489,6 @@
         const category = headerElement.closest('.category');
         if (category) {
             category.classList.toggle('collapsed');
-            const btn = headerElement.querySelector('button');
-            if (btn) {
-                btn.textContent = category.classList.contains('collapsed') ? '▶' : '▼';
-            }
         }
     }
 </script>
